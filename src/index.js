@@ -5,7 +5,11 @@ export default function extraScopePlugin(extra) {
     if (context !== 2 || type === 107) return
 
     for (let i = 0; i < selectors.length; i++) {
-      selectors[i] = `${scope}${selectors[i]}`
+      // https://github.com/Andarist/stylis-plugin-extra-scope/issues/2
+      // block multiple applications of scope
+      if (!selectors[i].includes(scope)) {
+        selectors[i] = `${scope}${selectors[i]}`
+      }
     }
   }
 }
